@@ -1,0 +1,56 @@
+{
+  "text.config.happier-ghasts.title": "Happier Ghasts",
+  "text.config.happier-ghasts.category.cruising": "Cruising",
+  "text.config.happier-ghasts.option.cruising.cruisingHeight": "Activation Height",
+  "text.config.happier-ghasts.option.cruising.cruisingHeight.tooltip": "The minimum Y coordinate to start cruising.",
+  "text.config.happier-ghasts.option.cruising.cruisingHeightSpeedMultiplier": "Speed Multiplier",
+  "text.config.happier-ghasts.option.cruising.cruisingHeightSpeedMultiplier.tooltip": "Speed multiplier while at cruising altitude.",
+  "text.config.happier-ghasts.category.roaming": "Dynamic Roaming",
+  "text.config.happier-ghasts.category.roaming.tooltip": "Happy Ghasts will roam around the last player to dismount them, keeping within summoning distance.",
+  "text.config.happier-ghasts.option.roaming.enabled": "Enable Dynamic Roaming",
+  "text.config.happier-ghasts.option.roaming.minRoamDistance": "Minimum Roaming Distance",
+  "text.config.happier-ghasts.option.roaming.minRoamDistance.tooltip": [
+    "A Happy Ghast roaming around a player will stay at least this distance away from the player.\n\n",
+    {
+      "text": "Low values may cause Happy Ghasts to obstruct players.",
+      "color": "#AAAAAA"
+    }
+  ],
+  "text.config.happier-ghasts.option.roaming.maxRoamDistance": "Maximum Roaming Distance",
+  "text.config.happier-ghasts.option.roaming.maxRoamDistance.tooltip": "A Happy Ghast roaming around a player will attempt to stay within this distance of the player.",
+  "text.config.happier-ghasts.option.roaming.roamSpeed": "Speed",
+  "text.config.happier-ghasts.option.roaming.roamSpeed.tooltip": [
+    "How fast a Happy Ghast will move while roaming around a player.\n\n",
+    {
+      "text": "Values lower than 1.1 may lead to Happy Ghasts having trouble keeping up with their targeted player.",
+      "color": "#AAAAAA"
+    }
+  ],
+  "text.config.happier-ghasts.option.roaming.roamBlockCheckDistance": "Max Distance from Solid Blocks",
+  "text.config.happier-ghasts.option.roaming.roamBlockCheckDistance.tooltip": [
+    "A Happy Ghast roaming around a player will stay within this distance of the nearest solid block.\n\n",
+    {
+      "text": "Set to 0 to disable.",
+      "color": "#AAAAAA"
+    }
+  ],
+  "text.config.happier-ghasts.category.temptation": "Temptation",
+  "text.config.happier-ghasts.option.temptation.temptRange": "Range",
+  "text.config.happier-ghasts.option.temptation.temptRange.tooltip": [
+    "How far away Happy Ghasts can by tempted from.\n\n",
+    {
+      "text": "It's recommended to set this equal to or higher than your Maximum Roaming Distance.",
+      "color": "#AAAAAA"
+    }
+  ],
+  "text.config.happier-ghasts.option.temptation.temptSpeed": "Summon Speed",
+  "text.config.happier-ghasts.option.temptation.temptSpeed.tooltip": "How fast Happy Ghasts will move towards a temptation target.",
+  "text.config.happier-ghasts.option.temptation.temptCooldownTicks": "Cooldown Ticks",
+  "text.config.happier-ghasts.option.temptation.temptCooldownTicks.tooltip": [
+    "How many ticks for Happy Ghasts to wait after losing a temptation target before they can be tempted again.\n\n",
+    {
+      "text": "High values may lead to a generally unresponsive feel that can be annoying.",
+      "color": "#AAAAAA"
+    }
+  ]
+}
