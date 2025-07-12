@@ -51,6 +51,6 @@ public class HappierGhastsConfigModel {
         @RangeConstraint(min = 0.1, max = 5.0)
         public double temptSpeed = 1.1;
         @RangeConstraint(min = 0, max = 200)
-        public int temptCooldownTicks = 20;
+        public int temptCooldownTicks = 100;
     }
 }
