@@ -4,7 +4,8 @@
   "package": "dev.tori.happierghasts.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "MixinHappyGhastEntity"
+    "MixinHappyGhastEntity",
+    "accessor.TemptGoalAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

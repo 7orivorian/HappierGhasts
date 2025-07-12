@@ -2,9 +2,9 @@ package dev.tori.happierghasts;
 
 import dev.tori.happierghasts.goals.HappyGhastRoamAroundPlayerGoal;
 import dev.tori.happierghasts.goals.HappyGhastSwimGoal;
+import dev.tori.happierghasts.goals.HappyGhastTemptGoal;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.GoalSelector;
-import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.mob.GhastEntity;
 import net.minecraft.entity.passive.HappyGhastEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,7 +27,7 @@ public final class HappyGhastHooks {
     }
 
     public static void initGoals(HappyGhastEntity ghast, GoalSelector goalSelector, Supplier<Entity> lastPassenger) {
-        goalSelector.add(1, new TemptGoal.HappyGhastTemptGoal(
+        goalSelector.add(1, new HappyGhastTemptGoal(
                 ghast,
                 CONFIG.temptation.temptSpeed(),
                 stack -> !ghast.isWearingBodyArmor() && !ghast.isBaby() ? stack.isIn(ItemTags.HAPPY_GHAST_TEMPT_ITEMS) : FOOD_PREDICATE.test(stack),
