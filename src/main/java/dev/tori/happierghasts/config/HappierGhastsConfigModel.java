@@ -14,6 +14,22 @@ public class HappierGhastsConfigModel {
 
     @Nest
     @Expanded
+    public Propellers propellers = new Propellers();
+
+    public static class Propellers {
+
+        @RangeConstraint(min = 1.0, max = 10.0)
+        public double copperPropellerSpeedMultiplier = 2;
+        @RangeConstraint(min = 1.0, max = 10.0)
+        public double ironPropellerSpeedMultiplier = 3;
+        @RangeConstraint(min = 1.0, max = 10.0)
+        public double diamondPropellerSpeedMultiplier = 4;
+        @RangeConstraint(min = 1.0, max = 10.0)
+        public double netheritePropellerSpeedMultiplier = 5;
+    }
+
+    @Nest
+    @Expanded
     public Cruising cruising = new Cruising();
 
     public static class Cruising {

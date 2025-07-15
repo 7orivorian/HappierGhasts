@@ -61,6 +61,7 @@ public abstract class MixinHappyGhastEntity extends AnimalEntity {
             cancellable = true
     )
     public void afterGetControlledMovementInput(PlayerEntity controllingPlayer, Vec3d movementInput, CallbackInfoReturnable<Vec3d> cir) {
-        cir.setReturnValue(HappyGhastHooks.scaleMovement(controllingPlayer, cir.getReturnValue()));
+        HappyGhastEntity _this = (HappyGhastEntity) (Object) this;
+        cir.setReturnValue(HappyGhastHooks.scaleMovement(_this, controllingPlayer, cir.getReturnValue()));
     }
 }

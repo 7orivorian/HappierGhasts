@@ -3,17 +3,19 @@ package dev.tori.happierghasts;
 import dev.tori.happierghasts.goals.HappyGhastRoamAroundPlayerGoal;
 import dev.tori.happierghasts.goals.HappyGhastSwimGoal;
 import dev.tori.happierghasts.goals.HappyGhastTemptGoal;
+import dev.tori.happierghasts.item.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.GoalSelector;
 import net.minecraft.entity.mob.GhastEntity;
 import net.minecraft.entity.passive.HappyGhastEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.function.Supplier;
 
-import static dev.tori.happierghasts.HappierGhasts.CONFIG;
+import static dev.tori.happierghasts.HappierGhasts.*;
 import static net.minecraft.entity.passive.HappyGhastEntity.FOOD_PREDICATE;
 
 /**
@@ -48,11 +50,25 @@ public final class HappyGhastHooks {
         goalSelector.add(5, new GhastEntity.FlyRandomlyGoal(ghast, 16));
     }
 
-    public static Vec3d scaleMovement(PlayerEntity controllingPlayer, Vec3d movementInput) {
-        if (isAtCruisingHeight(controllingPlayer.getPos())) {
-            movementInput = movementInput.multiply(CONFIG.cruising.cruisingHeightSpeedMultiplier());
+    public static Vec3d scaleMovement(HappyGhastEntity ghast, PlayerEntity controllingPlayer, Vec3d movementInput) {
+        double multiplier = 1.0;
+
+        ItemStack propellerStack = ghast.getEquippedStack(PROPELLER_SLOT);
+        if (!propellerStack.isEmpty()) {
+            if (propellerStack.isOf(ModItems.COPPER_PROPELLER)) {
+                multiplier *= CONFIG.propellers.copperPropellerSpeedMultiplier();
+            } else if (propellerStack.isOf(ModItems.IRON_PROPELLER)) {
+                multiplier *= CONFIG.propellers.ironPropellerSpeedMultiplier();
+            } else if (propellerStack.isOf(ModItems.DIAMOND_PROPELLER)) {
+                multiplier *= CONFIG.propellers.diamondPropellerSpeedMultiplier();
+            } else if (propellerStack.isOf(ModItems.NETHERITE_PROPELLER)) {
+                multiplier *= CONFIG.propellers.netheritePropellerSpeedMultiplier();
+            }
         }
-        return movementInput;
+        if (isAtCruisingHeight(controllingPlayer.getPos())) {
+            multiplier *= CONFIG.cruising.cruisingHeightSpeedMultiplier();
+        }
+        return movementInput.multiply(multiplier);
     }
 
     public static boolean isAtCruisingHeight(Vec3d pos) {

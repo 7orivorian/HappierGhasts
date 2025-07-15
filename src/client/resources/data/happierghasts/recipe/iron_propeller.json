@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": "minecraft:iron_ingot",
+    "L": "#minecraft:logs",
+    "O": "minecraft:white_wool"
+  },
+  "pattern": [
+    "XOX",
+    "OLO",
+    "XOX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "happierghasts:iron_propeller"
+  }
+}
