@@ -20,7 +20,6 @@
   "mixins": [
     "happierghasts.mixins.json"
   ],
-  "accessWidener": "happierghasts.accesswidener",
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
