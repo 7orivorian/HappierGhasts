@@ -3,8 +3,10 @@
   "id": "happierghasts",
   "version": "${version}",
   "name": "HappierGhasts",
-  "description": "",
-  "authors": [],
+  "description": "QoL changes to Happy Ghasts to increase their use cases and improve airship adventuring.",
+  "authors": [
+    "7orivorian"
+  ],
   "contact": {},
   "license": "All-Rights-Reserved",
   "icon": "assets/happierghasts/icon.png",
