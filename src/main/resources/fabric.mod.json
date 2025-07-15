@@ -18,11 +18,7 @@
     ]
   },
   "mixins": [
-    "happierghasts.mixins.json",
-    {
-      "config": "happierghasts.client.mixins.json",
-      "environment": "client"
-    }
+    "happierghasts.mixins.json"
   ],
   "accessWidener": "happierghasts.accesswidener",
   "depends": {
