@@ -10,9 +10,6 @@
   "icon": "assets/happierghasts/icon.png",
   "environment": "*",
   "entrypoints": {
-    "fabric-datagen": [
-      "dev.tori.happierghasts.client.HappierGhastsDataGenerator"
-    ],
     "client": [
       "dev.tori.happierghasts.client.HappierGhastsClient"
     ],
