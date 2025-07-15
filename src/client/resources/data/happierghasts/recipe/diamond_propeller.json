@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "X": "minecraft:iron_ingot",
+    "X": "minecraft:diamond",
     "L": "#minecraft:logs",
     "O": "minecraft:white_wool"
   },
