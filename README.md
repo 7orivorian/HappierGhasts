@@ -23,11 +23,11 @@ and improve airship adventuring.
 - **Propeller Upgrades**<br>
   Attain speed boosts by attaching a propeller to your Happy Ghast's Harness.
   Propellers come in several tiers, from copper all the way to netherite, and
-  perhaps beyond..?
+  perhaps beyond...?
 
 - **Armored Airship**<br>
   Outfit your Happy Ghasts with the finest of armors. After all, who isn't
-  happiest while impervious to harm?
+  at their happiest while impervious to harm?
 
 ## FAQ
 
@@ -36,5 +36,5 @@ and improve airship adventuring.
 to function properly.
 
 **Q:** How do I configure this mod?<br>
-**A:** I recommend [ModMenu](https://modrinth.com/mod/modmenu), but you can also
-edit the config directly in `/config/happier-ghasts.json5`.
+**A:** For singleplayer I recommend [ModMenu](https://modrinth.com/mod/modmenu), 
+server admins can edit the config directly in `/config/happier-ghasts.json5`.
