@@ -1,6 +1,7 @@
 package dev.tori.happierghasts.mixin;
 
-import dev.tori.happierghasts.HappyGhastHooks;
+import dev.tori.happierghasts.HappierGhasts;
+import dev.tori.happierghasts.HappierGhastHooks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.AnimalEntity;
@@ -32,13 +33,13 @@ public abstract class MixinHappyGhastEntity extends AnimalEntity {
 
     /**
      * @author <a href="https://github.com/7orivorian">7orivorian</a>
-     * @reason fuck you
+     * @reason because yes
      */
     @Overwrite
     public void initGoals() {
         HappyGhastEntity _this = (HappyGhastEntity) (Object) this;
 
-        HappyGhastHooks.initGoals(_this, this.goalSelector, () -> this.lastPassenger);
+        HappierGhastHooks.initGoals(_this, this.goalSelector, () -> this.lastPassenger);
     }
 
     @Inject(
@@ -51,6 +52,7 @@ public abstract class MixinHappyGhastEntity extends AnimalEntity {
     )
     public void afterRemovePassenger(Entity entity, CallbackInfo ci) {
         this.lastPassenger = entity;
+        HappierGhasts.LOGGER.info("HappyGhastEntity#lastPassenger set to {}", entity);
     }
 
     @Inject(
@@ -62,6 +64,7 @@ public abstract class MixinHappyGhastEntity extends AnimalEntity {
     )
     public void afterGetControlledMovementInput(PlayerEntity controllingPlayer, Vec3d movementInput, CallbackInfoReturnable<Vec3d> cir) {
         HappyGhastEntity _this = (HappyGhastEntity) (Object) this;
-        cir.setReturnValue(HappyGhastHooks.scaleMovement(_this, controllingPlayer, cir.getReturnValue()));
+
+        cir.setReturnValue(HappierGhastHooks.scaleMovement(_this, controllingPlayer, cir.getReturnValue()));
     }
 }

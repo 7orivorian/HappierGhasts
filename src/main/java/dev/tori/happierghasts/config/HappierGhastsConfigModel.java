@@ -19,13 +19,13 @@ public class HappierGhastsConfigModel {
     public static class Propellers {
 
         @RangeConstraint(min = 1.0, max = 10.0)
-        public double copperPropellerSpeedMultiplier = 2;
+        public double copperSpeedMultiplier = 2;
         @RangeConstraint(min = 1.0, max = 10.0)
-        public double ironPropellerSpeedMultiplier = 3;
+        public double ironSpeedMultiplier = 3;
         @RangeConstraint(min = 1.0, max = 10.0)
-        public double diamondPropellerSpeedMultiplier = 4;
+        public double diamondSpeedMultiplier = 4;
         @RangeConstraint(min = 1.0, max = 10.0)
-        public double netheritePropellerSpeedMultiplier = 5;
+        public double netheriteSpeedMultiplier = 5;
     }
 
     @Nest
@@ -34,9 +34,9 @@ public class HappierGhastsConfigModel {
 
     public static class Cruising {
 
-        public int cruisingHeight = 186;
+        public int activationHeight = 186;
         @RangeConstraint(min = 1.0, max = 10.0)
-        public double cruisingHeightSpeedMultiplier = 2.0;
+        public double speedMultiplier = 2.0;
     }
 
     @Nest
@@ -47,13 +47,15 @@ public class HappierGhastsConfigModel {
 
         public boolean enabled = true;
         @RangeConstraint(min = 0, max = 128)
-        public int minRoamDistance = 8;
+        public int minDistance = 8;
         @RangeConstraint(min = 0, max = 128)
-        public int maxRoamDistance = 16;
+        public int maxDistance = 16;
         @RangeConstraint(min = 0.1, max = 10.0)
-        public double roamSpeed = 1.1;
+        public double minSpeed = 1.0;
+        @RangeConstraint(min = 0.1, max = 10.0)
+        public double maxSpeed = 10;
         @RangeConstraint(min = 0, max = 64)
-        public int roamBlockCheckDistance = 0;
+        public int blockCheckDistance = 0;
     }
 
     @Nest
@@ -63,10 +65,10 @@ public class HappierGhastsConfigModel {
     public static class Temptation {
 
         @RangeConstraint(min = 0, max = 10)
-        public int temptRange = 5;
+        public int range = 5;
         @RangeConstraint(min = 0.1, max = 5.0)
-        public double temptSpeed = 1.1;
+        public double speed = 1.1;
         @RangeConstraint(min = 0, max = 200)
-        public int temptCooldownTicks = 100;
+        public int cooldownTicks = 100;
     }
 }

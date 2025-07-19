@@ -24,7 +24,7 @@ public class HappyGhastTemptGoal extends TemptGoal {
     @Override
     public void stop() {
         super.stop();
-        ((TemptGoalAccessor) this).setCooldown(toGoalTicks(CONFIG.temptation.temptCooldownTicks()));
+        ((TemptGoalAccessor) this).setCooldown(toGoalTicks(CONFIG.temptation.cooldownTicks()));
     }
 
     @Override

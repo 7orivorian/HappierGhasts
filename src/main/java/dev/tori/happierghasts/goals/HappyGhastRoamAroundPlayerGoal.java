@@ -1,5 +1,6 @@
 package dev.tori.happierghasts.goals;
 
+import dev.tori.happierghasts.HappierGhasts;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.Goal;
@@ -36,15 +37,17 @@ public class HappyGhastRoamAroundPlayerGoal extends Goal {
      */
     private final int maxRoamDistance;
     private final int blockCheckDistance;
-    private final double speed;
+    private final double minSpeed;
+    private final double maxSpeed;
 
-    public HappyGhastRoamAroundPlayerGoal(MobEntity ghast, Supplier<Entity> lastPassenger, int minRoamDistance, int maxRoamDistance, int blockCheckDistance, double speed) {
+    public HappyGhastRoamAroundPlayerGoal(MobEntity ghast, Supplier<Entity> lastPassenger, int minRoamDistance, int maxRoamDistance, int blockCheckDistance, double minSpeed, double maxSpeed) {
         this.ghast = ghast;
         this.lastPassenger = lastPassenger;
         this.minRoamDistance = minRoamDistance;
         this.maxRoamDistance = maxRoamDistance;
         this.blockCheckDistance = blockCheckDistance;
-        this.speed = speed;
+        this.minSpeed = minSpeed;
+        this.maxSpeed = maxSpeed;
 
         this.setControls(EnumSet.of(Goal.Control.MOVE));
     }
@@ -52,36 +55,42 @@ public class HappyGhastRoamAroundPlayerGoal extends Goal {
     @Override
     public boolean canStart() {
         if (ghast.isLeashed()) {
+            HappierGhasts.LOGGER.debug("{} is leashed, cannot roam around player", ghast);
             return false;
         }
 
         PlayerEntity player = getLastPlayerPassenger();
+
+        // Only follow living, non-spectator players
         if (player == null || player.isSpectator() || !player.isAlive()) {
+            HappierGhasts.LOGGER.debug("No valid player to roam around ({})", ghast);
             return false;
         }
 
-        // Only follow a player if we're in the same dimension
+        // Only follow a player in the same dimension as us
         if (!player.getWorld().getDimension().equals(ghast.getWorld().getDimension())) {
+            HappierGhasts.LOGGER.debug("{} is in a different dimension than player ({})", ghast, player);
             return false;
         }
 
-        // Don't attempt to follow a player who's very far away
+        // Don't attempt to follow a player who's extremely far away
         double distanceToPlayer = ghast.squaredDistanceTo(player);
         if (distanceToPlayer >= MAX_FOLLOW_DISTANCE_SQ) {
+            HappierGhasts.LOGGER.debug("{} is too far away to roam around player ({})", ghast, player);
             return false;
         }
 
         MoveControl moveControl = ghast.getMoveControl();
-        if (!moveControl.isMoving()) {
-            return true;
-        } else {
+        if (moveControl.isMoving()) {
             double xDiff = moveControl.getTargetX() - ghast.getX();
             double yDiff = moveControl.getTargetY() - ghast.getY();
             double zDiff = moveControl.getTargetZ() - ghast.getZ();
             double distanceFromTarget = xDiff * xDiff + yDiff * yDiff + zDiff * zDiff;
 
-            return distanceFromTarget < 1.0 || distanceFromTarget > 3600.0;
+            return distanceFromTarget <= minRoamDistance
+                   || distanceFromTarget >= maxRoamDistance;
         }
+        return true;
     }
 
     @Override
@@ -91,13 +100,28 @@ public class HappyGhastRoamAroundPlayerGoal extends Goal {
 
     @Override
     public void start() {
-        Entity entity = getLastPassenger();
-        if (entity == null) {
-            throw new IllegalStateException("lastPassenger changed to null after canStart() returned true");
+        PlayerEntity player = getLastPlayerPassenger();
+        if (player == null) {
+            throw new IllegalStateException("getLastPlayerPassenger() is null after canStart() returned true. This should never happen.");
         }
 
-        Vec3d vec3d = locateTarget(ghast, entity, minRoamDistance, maxRoamDistance, blockCheckDistance);
+        Vec3d vec3d = locateTarget(ghast, player, minRoamDistance, maxRoamDistance, blockCheckDistance);
+
+        // Sets our home to the player's location.
+        // This keeps the Ghast in this general area if
+        // a player temporarily becomes an invalid target
+        ghast.setPositionTarget(BlockPos.ofFloored(vec3d), maxRoamDistance);
+
+        double dist = vec3d.distanceTo(player.getPos());
+        double speed = minSpeed;
+        if (dist > maxRoamDistance) {
+            double progress = Math.min(1.0, (dist - maxRoamDistance) / maxRoamDistance);
+            speed = minSpeed + (maxSpeed - minSpeed) * progress;
+        }
+
         ghast.getMoveControl().moveTo(vec3d.getX(), vec3d.getY(), vec3d.getZ(), speed);
+
+        HappierGhasts.LOGGER.info("Target dist from player: {}", vec3d.distanceTo(player.getPos()));
     }
 
     public static Vec3d locateTarget(MobEntity ghast, Entity targetEntity, int minRoamDistance, int maxRoamDistance, int blockCheckDistance) {
@@ -113,12 +137,14 @@ public class HappyGhastRoamAroundPlayerGoal extends Goal {
 
         // Find a random position within min and max roam distance from the target entity
         for (int i = 0; i < ROAM_ATTEMPTS; i++) {
-            target = getTargetPos(ghast, vec3d, random);
-            if (target != null && isTargetValid(world, target, blockCheckDistance)) {
-                double distanceFromTargetEntity = target.squaredDistanceTo(targetEntityPos);
-                if (distanceFromTargetEntity >= minRoamSq && distanceFromTargetEntity <= maxRoamSq) {
-                    return target;
-                }
+            target = getTargetPos(targetEntityPos, minRoamDistance, maxRoamDistance, random);
+            if (!isTargetValid(world, target, blockCheckDistance)) {
+                target = null;
+                continue;
+            }
+            double distanceFromTargetEntity = target.squaredDistanceTo(targetEntityPos);
+            if (distanceFromTargetEntity >= minRoamSq && distanceFromTargetEntity <= maxRoamSq) {
+                return target;
             }
         }
 
@@ -126,10 +152,59 @@ public class HappyGhastRoamAroundPlayerGoal extends Goal {
         if (target == null) {
             target = addRandom(vec3d, random);
         }
+        HappierGhasts.LOGGER.warn("{} failed to find a valid target position for player roaming. Using random position instead.", ghast);
 
         return correctVertical(ghast, world, target);
     }
 
+    private static boolean isTargetValid(World world, Vec3d target, int blockCheckDistance) {
+        if (blockCheckDistance <= 0) {
+            return true;
+        } else {
+            BlockPos blockPos = BlockPos.ofFloored(target);
+            if (world.getBlockState(blockPos).isAir()) {
+                for (Direction direction : Direction.values()) {
+                    for (int i = 1; i < blockCheckDistance; i++) {
+                        BlockPos offset = blockPos.offset(direction, i);
+                        if (!world.getBlockState(offset).isAir()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+    }
+
+    private static Vec3d getTargetPos(Vec3d pos, double minDistance, double maxDistance, Random random) {
+        return addRandom(pos, minDistance, maxDistance, random);
+    }
+
+    private static Vec3d addRandom(Vec3d pos, Random random) {
+        double x = pos.getX() + (random.nextFloat() * 2.0F - 1.0F) * 16.0F;
+        double y = pos.getY() + (random.nextFloat() * 2.0F - 1.0F) * 16.0F;
+        double z = pos.getZ() + (random.nextFloat() * 2.0F - 1.0F) * 16.0F;
+        return new Vec3d(x, y, z);
+    }
+
+    private static Vec3d addRandom(Vec3d pos, double minDistance, double maxDistance, Random random) {
+        // Random distance within [minDistance, maxDistance] (inclusive)
+        double distance = minDistance + (random.nextDouble() * (maxDistance - minDistance));
+
+        // Random direction (spherical coordinates)
+        double theta = random.nextDouble() * 2 * Math.PI; // azimuthal angle [0, 2π]
+        double phi = Math.acos(2 * random.nextDouble() - 1); // polar angle [0, π], uniformly distributed
+
+        double xOffset = distance * Math.sin(phi) * Math.cos(theta);
+        double yOffset = distance * Math.sin(phi) * Math.sin(theta);
+        double zOffset = distance * Math.cos(phi);
+
+        return new Vec3d(
+                pos.getX() + xOffset,
+                pos.getY() + yOffset,
+                pos.getZ() + zOffset
+        );
+    }
 
     /**
      * Ensures the target position is within world height boundaries.
@@ -146,47 +221,6 @@ public class HappyGhastRoamAroundPlayerGoal extends Goal {
             target = new Vec3d(target.getX(), ghast.getY() - Math.abs(ghast.getY() - target.getY()), target.getZ());
         }
         return target;
-    }
-
-    private static boolean isTargetValid(World world, Vec3d pos, int blockCheckDistance) {
-        if (blockCheckDistance <= 0) {
-            return true;
-        } else {
-            BlockPos blockPos = BlockPos.ofFloored(pos);
-            if (world.getBlockState(blockPos).isAir()) {
-                for (Direction direction : Direction.values()) {
-                    for (int i = 1; i < blockCheckDistance; i++) {
-                        BlockPos offset = blockPos.offset(direction, i);
-                        if (!world.getBlockState(offset).isAir()) {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-    }
-
-    private static Vec3d addRandom(Vec3d pos, Random random) {
-        double x = pos.getX() + (random.nextFloat() * 2.0F - 1.0F) * 16.0F;
-        double y = pos.getY() + (random.nextFloat() * 2.0F - 1.0F) * 16.0F;
-        double z = pos.getZ() + (random.nextFloat() * 2.0F - 1.0F) * 16.0F;
-        return new Vec3d(x, y, z);
-    }
-
-    @Nullable
-    private static Vec3d getTargetPos(MobEntity ghast, Vec3d pos, Random random) {
-        Vec3d vec3d = addRandom(pos, random);
-        return ghast.hasPositionTarget() && !ghast.isInPositionTargetRange(vec3d) ? null : vec3d;
-    }
-
-    /**
-     * Determines if the last passenger to dismount was a {@link PlayerEntity}.
-     *
-     * @return {@code true} if the last passenger is an instance of {@link PlayerEntity}, {@code false} otherwise.
-     */
-    private boolean wasLastPassengerAPlayer() {
-        return getLastPassenger() instanceof PlayerEntity;
     }
 
     /**

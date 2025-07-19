@@ -1,5 +1,6 @@
 package dev.tori.happierghasts.client;
 
+import com.mojang.logging.LogUtils;
 import dev.tori.happierghasts.HappierGhasts;
 import dev.tori.happierghasts.item.ModItems;
 import net.fabricmc.api.ClientModInitializer;
@@ -8,12 +9,17 @@ import net.minecraft.item.Item;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import org.slf4j.Logger;
 
 /**
  * @author <a href="https://github.com/7orivorian">7orivorian</a>
  * @since 1.0.0
  */
 public class HappierGhastsClient implements ClientModInitializer {
+
+    public static final String MOD_ID = "happierghasts";
+    public static final String MOD_NAME = "HappierGhasts";
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     @Override
     public void onInitializeClient() {
@@ -25,13 +31,13 @@ public class HappierGhastsClient implements ClientModInitializer {
 
                     int speedBonus;
                     if (stack.isOf(ModItems.COPPER_PROPELLER)) {
-                        speedBonus = (int) (HappierGhasts.CONFIG.propellers.copperPropellerSpeedMultiplier() * 100) - 100;
+                        speedBonus = (int) (HappierGhasts.CONFIG.propellers.copperSpeedMultiplier() * 100) - 100;
                     } else if (stack.isOf(ModItems.IRON_PROPELLER)) {
-                        speedBonus = (int) (HappierGhasts.CONFIG.propellers.ironPropellerSpeedMultiplier() * 100) - 100;
+                        speedBonus = (int) (HappierGhasts.CONFIG.propellers.ironSpeedMultiplier() * 100) - 100;
                     } else if (stack.isOf(ModItems.DIAMOND_PROPELLER)) {
-                        speedBonus = (int) (HappierGhasts.CONFIG.propellers.diamondPropellerSpeedMultiplier() * 100) - 100;
+                        speedBonus = (int) (HappierGhasts.CONFIG.propellers.diamondSpeedMultiplier() * 100) - 100;
                     } else if (stack.isOf(ModItems.NETHERITE_PROPELLER)) {
-                        speedBonus = (int) (HappierGhasts.CONFIG.propellers.netheritePropellerSpeedMultiplier() * 100) - 100;
+                        speedBonus = (int) (HappierGhasts.CONFIG.propellers.netheriteSpeedMultiplier() * 100) - 100;
                     } else {
                         speedBonus = 0;
                     }
@@ -42,5 +48,6 @@ public class HappierGhastsClient implements ClientModInitializer {
                 }
             }
         });
+        LOGGER.info("{} initialized!", MOD_NAME);
     }
 }
