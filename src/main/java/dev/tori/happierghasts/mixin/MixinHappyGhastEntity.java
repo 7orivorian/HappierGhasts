@@ -1,6 +1,5 @@
 package dev.tori.happierghasts.mixin;
 
-import dev.tori.happierghasts.HappierGhasts;
 import dev.tori.happierghasts.HappierGhastHooks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -52,7 +51,6 @@ public abstract class MixinHappyGhastEntity extends AnimalEntity {
     )
     public void afterRemovePassenger(Entity entity, CallbackInfo ci) {
         this.lastPassenger = entity;
-        HappierGhasts.LOGGER.info("HappyGhastEntity#lastPassenger set to {}", entity);
     }
 
     @Inject(

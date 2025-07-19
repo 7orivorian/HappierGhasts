@@ -120,8 +120,6 @@ public class HappyGhastRoamAroundPlayerGoal extends Goal {
         }
 
         ghast.getMoveControl().moveTo(vec3d.getX(), vec3d.getY(), vec3d.getZ(), speed);
-
-        HappierGhasts.LOGGER.info("Target dist from player: {}", vec3d.distanceTo(player.getPos()));
     }
 
     public static Vec3d locateTarget(MobEntity ghast, Entity targetEntity, int minRoamDistance, int maxRoamDistance, int blockCheckDistance) {
