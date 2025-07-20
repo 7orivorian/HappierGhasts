@@ -1,5 +1,8 @@
 # The Happiest Ghasts You Ever Did See!
 
+![a ghastling flying towards the viewer
+with a yellow starburst behind it](./assets/icon_384x384.png)
+
 Happier Ghasts provides QoL changes to Happy Ghasts to increase their use cases
 and improve airship adventuring.
 
@@ -25,20 +28,24 @@ and improve airship adventuring.
   Propellers come in several tiers, from copper all the way to netherite, and
   perhaps beyond...?
 
-- **Armored Airship**<br>
-  Outfit your Happy Ghasts with the finest of armors. After all, who isn't
-  at their happiest while impervious to harm?
+## Planned Features
+
+- Visual propeller models on the backs of Happy Ghasts.
+- Happy Ghast Armor.
 
 ## FAQ
+
+**Q:** Can I remove a propeller?<br>
+**A:** Yes! Propellers are removed the same way as harnesses—with shears.
 
 **Q:** Where do I install this mod?<br>
 **A:** HappierGhasts must be installed on both the **client** and the **server**
 to function properly.
 
 **Q:** How do I configure this mod?<br>
-**A:** For singleplayer I recommend [ModMenu](https://modrinth.com/mod/modmenu), 
+**A:** For singleplayer I recommend [ModMenu](https://modrinth.com/mod/modmenu),
 server admins can edit the config directly in `/config/happier-ghasts.json5`.
 
 **Q:** May I use this mod in my modpack?<br>
-**A:** Absolutely! You may freely use an unmodified version of this mod in any 
+**A:** Absolutely! You may freely use an unmodified version of this mod in any
 modpacks/videos/etc without contacting me for approval.
