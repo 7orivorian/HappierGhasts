@@ -38,3 +38,7 @@ to function properly.
 **Q:** How do I configure this mod?<br>
 **A:** For singleplayer I recommend [ModMenu](https://modrinth.com/mod/modmenu), 
 server admins can edit the config directly in `/config/happier-ghasts.json5`.
+
+**Q:** May I use this mod in my modpack?<br>
+**A:** Absolutely! You may freely use an unmodified version of this mod in any 
+modpacks/videos/etc without contacting me for approval.
