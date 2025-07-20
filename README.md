@@ -3,8 +3,11 @@
 ![a ghastling flying towards the viewer
 with a yellow starburst behind it](./assets/icon_384x384.png)
 
-Happier Ghasts provides QoL changes to Happy Ghasts to increase their use cases
-and improve airship adventuring.
+[![modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg)](https://modrinth.com/mod/happierghasts)
+[![kofi-singular](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/donate/kofi-singular_vector.svg)](https://7ori.dev/ko-fi)
+
+Happier Ghasts is a minecraft mod that provides QoL changes to Happy Ghasts to 
+increase their use cases and improve airship adventuring.
 
 *Take to the skies, adventure awaits you!*
 
