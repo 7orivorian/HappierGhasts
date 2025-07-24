@@ -22,8 +22,8 @@ public class HappierGhasts implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        ModItems.registerItemGroups();
+        LOGGER.info("Initializing {}!", MOD_NAME);
 
-        LOGGER.info("{} initialized!", MOD_NAME);
+        ModItems.registerItemGroups();
     }
 }

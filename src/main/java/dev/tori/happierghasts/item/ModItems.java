@@ -45,7 +45,8 @@ public class ModItems {
     }};
 
     public static void registerItemGroups() {
-        LOGGER.info("Registering item groups...");
+        LOGGER.debug("Registering item groups...");
+
         OwoItemGroup.builder(
                 Identifier.of(HappierGhasts.MOD_ID, "happier_ghasts"),
                 () -> Icon.of(Items.PURPLE_HARNESS)
