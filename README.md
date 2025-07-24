@@ -13,7 +13,7 @@ increase their use cases and improve airship adventuring.
 
 ## Features
 
-*~ Everything is configurable! ~*
+*\~ Everything is configurable! \~*
 
 - **Cruising Altitude**<br>
   Boost flight speed while cruising at high altitudes.
