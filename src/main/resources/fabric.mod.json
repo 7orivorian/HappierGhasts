@@ -3,11 +3,15 @@
   "id": "happierghasts",
   "version": "${version}",
   "name": "HappierGhasts",
-  "description": "QoL changes to Happy Ghasts to increase their use cases and improve airship adventuring.",
+  "description": "Quality of life changes to Happy Ghasts to increase their use cases and improve airship adventuring.",
   "authors": [
     "7orivorian"
   ],
-  "contact": {},
+  "contact": {
+    "homepage": "https://modrinth.com/mod/happierghasts",
+    "sources": "https://github.com/7orivorian/HappierGhasts",
+    "issues": "https://github.com/7orivorian/HappierGhasts/issues"
+  },
   "license": "All-Rights-Reserved",
   "icon": "assets/happierghasts/icon.png",
   "environment": "*",
@@ -27,10 +31,5 @@
     "fabric": "*",
     "minecraft": ">=${base_minecraft_version}",
     "owo-lib": "0.12.21+1.21.6"
-  },
-  "custom": {
-    "modmenu": {
-      "modmenu.modrinth": "https://modrinth.com/mod/"
-    }
   }
 }
