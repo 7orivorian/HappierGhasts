@@ -23,6 +23,8 @@ public class HappierGhastsClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        LOGGER.info("Initializing {}!", MOD_NAME);
+
         ItemTooltipCallback.EVENT.register((stack, context, type, list) -> {
             for (Item propeller : ModItems.PROPELLERS) {
                 if (stack.isOf(propeller)) {
@@ -48,6 +50,5 @@ public class HappierGhastsClient implements ClientModInitializer {
                 }
             }
         });
-        LOGGER.info("{} initialized!", MOD_NAME);
     }
 }
