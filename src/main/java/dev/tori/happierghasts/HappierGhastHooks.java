@@ -67,7 +67,7 @@ public final class HappierGhastHooks {
                 multiplier *= CONFIG.propellers.netheriteSpeedMultiplier();
             }
         }
-        if (isAtCruisingHeight(controllingPlayer.getPos())) {
+        if (isAtCruisingHeight(controllingPlayer.getEntityPos())) {
             multiplier *= CONFIG.cruising.speedMultiplier();
         }
         return movementInput.multiply(multiplier);

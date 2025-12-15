@@ -3,8 +3,17 @@ plugins {
     id 'maven-publish'
 }
 
-version = project.minecraft_version > project.base_minecraft_version ? "${project.mod_version}+${project.base_minecraft_version}+" : "${project.mod_version}+${project.minecraft_version}"
 group = project.maven_group
+
+int min_mc_ver_minor = Integer.parseInt(project.base_minecraft_version.split("\\.")[1])
+int max_mc_ver_minor = Integer.parseInt(project.minecraft_version.split("\\.")[1])
+
+int min_mc_ver_patch = Integer.parseInt(project.base_minecraft_version.split("\\.")[2])
+int max_mc_ver_patch = Integer.parseInt(project.minecraft_version.split("\\.")[2])
+
+version = (max_mc_ver_minor > min_mc_ver_minor) || (max_mc_ver_patch > min_mc_ver_patch) ?
+        "${project.mod_version}-[${project.base_minecraft_version}-${project.minecraft_version}]" :
+        "${project.mod_version}-[${project.minecraft_version}]"
 
 base {
     archivesName = project.archives_base_name
@@ -71,7 +80,7 @@ jar {
     inputs.property "archivesName", project.base.archivesName
 
     from("LICENSE") {
-        rename { "${it}_${inputs.properties.archivesName}"}
+        rename { "${it}_${inputs.properties.archivesName}" }
     }
 }
 

@@ -18,6 +18,6 @@ public class HappyGhastSwimGoal extends SwimGoal {
 
     @Override
     public boolean canStart() {
-        return !entity.method_72227() && super.canStart();
+        return !entity.isStill() && super.canStart();
     }
 }

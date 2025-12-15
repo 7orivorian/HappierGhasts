@@ -68,7 +68,7 @@ public class HappyGhastRoamAroundPlayerGoal extends Goal {
         }
 
         // Only follow a player in the same dimension as us
-        if (!player.getWorld().getDimension().equals(ghast.getWorld().getDimension())) {
+        if (!player.getEntityWorld().getDimension().equals(ghast.getEntityWorld().getDimension())) {
             HappierGhasts.LOGGER.debug("{} is in a different dimension than player ({})", ghast, player);
             return false;
         }
@@ -112,7 +112,7 @@ public class HappyGhastRoamAroundPlayerGoal extends Goal {
         // a player temporarily becomes an invalid target
         ghast.setPositionTarget(BlockPos.ofFloored(vec3d), maxRoamDistance);
 
-        double dist = vec3d.distanceTo(player.getPos());
+        double dist = vec3d.distanceTo(player.getEntityPos());
         double speed = minSpeed;
         if (dist > maxRoamDistance) {
             double progress = Math.min(1.0, (dist - maxRoamDistance) / maxRoamDistance);
@@ -123,13 +123,13 @@ public class HappyGhastRoamAroundPlayerGoal extends Goal {
     }
 
     public static Vec3d locateTarget(MobEntity ghast, Entity targetEntity, int minRoamDistance, int maxRoamDistance, int blockCheckDistance) {
-        World world = ghast.getWorld();
+        World world = ghast.getEntityWorld();
         Random random = ghast.getRandom();
-        Vec3d vec3d = ghast.getPos();
+        Vec3d vec3d = ghast.getEntityPos();
         int minRoamSq = minRoamDistance * minRoamDistance;
         int maxRoamSq = maxRoamDistance * maxRoamDistance;
 
-        Vec3d targetEntityPos = targetEntity.getPos();
+        Vec3d targetEntityPos = targetEntity.getEntityPos();
 
         Vec3d target = null;
 

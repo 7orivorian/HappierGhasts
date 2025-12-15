@@ -34,7 +34,7 @@ public class HappyGhastTemptGoal extends TemptGoal {
 
     @Override
     protected void startMovingTo(PlayerEntity player) {
-        Vec3d vec3d = player.getEyePos().subtract(mob.getPos()).multiply(mob.getRandom().nextDouble()).add(mob.getPos());
+        Vec3d vec3d = player.getEyePos().subtract(mob.getEntityPos()).multiply(mob.getRandom().nextDouble()).add(mob.getEntityPos());
         mob.getMoveControl().moveTo(vec3d.x, vec3d.y, vec3d.z, speed);
     }
 }
