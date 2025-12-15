@@ -8,8 +8,7 @@
 [![kofi-singular](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/donate/kofi-singular_vector.svg)](https://7ori.dev/ko-fi)
 <!-- formatter:on -->
 
-Happier Ghasts is a minecraft mod that provides QoL changes to Happy Ghasts to 
-increase their use cases and improve airship adventuring.
+Happier Ghasts is a minecraft mod that provides QoL changes to Happy Ghasts, greatly improving airship adventuring.
 
 *Take to the skies, adventure awaits you!*
 
