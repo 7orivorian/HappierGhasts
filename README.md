@@ -1,7 +1,7 @@
 # The Happiest Ghasts You Ever Did See!
 
 <!-- formatter:off -->
-![a ghastling flying towards the viewer with a yellow starburst behind it](./assets/icon_384x384.png)
+![a smiling ghastling flying towards the viewer with a yellow starburst behind it](./assets/icon_384x384.png)
 
 [![modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg)](https://modrinth.com/mod/happierghasts)
 [![fabric](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/fabric_vector.svg)](https://modrinth.com/mod/happierghasts)
@@ -20,7 +20,7 @@ increase their use cases and improve airship adventuring.
 - **Cruising Altitude**<br>
   Boost flight speed while cruising at high altitudes.
 
-- **Player-centric Roaming**<br>
+- **Player-Centric Roaming**<br>
   Happy Ghasts will now roam around the last player to dismount them — no more
   fiddling with leads to keep your happy companions around!
 
