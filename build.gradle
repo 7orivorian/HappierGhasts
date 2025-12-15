@@ -5,15 +5,15 @@ plugins {
 
 group = project.maven_group
 
-int min_mc_ver_minor = Integer.parseInt(project.base_minecraft_version.split("\\.")[1])
-int max_mc_ver_minor = Integer.parseInt(project.minecraft_version.split("\\.")[1])
+int min_mc_ver_minor = Integer.parseInt(project.min_minecraft_version.split("\\.")[1])
+int max_mc_ver_minor = Integer.parseInt(project.max_minecraft_version.split("\\.")[1])
 
-int min_mc_ver_patch = Integer.parseInt(project.base_minecraft_version.split("\\.")[2])
-int max_mc_ver_patch = Integer.parseInt(project.minecraft_version.split("\\.")[2])
+int min_mc_ver_patch = Integer.parseInt(project.min_minecraft_version.split("\\.")[2])
+int max_mc_ver_patch = Integer.parseInt(project.max_minecraft_version.split("\\.")[2])
 
 version = (max_mc_ver_minor > min_mc_ver_minor) || (max_mc_ver_patch > min_mc_ver_patch) ?
-        "${project.mod_version}-[${project.base_minecraft_version}-${project.minecraft_version}]" :
-        "${project.mod_version}-[${project.minecraft_version}]"
+        "${project.mod_version}-[${project.min_minecraft_version}-${project.max_minecraft_version}]" :
+        "${project.mod_version}-[${project.max_minecraft_version}]"
 
 base {
     archivesName = project.archives_base_name
@@ -37,7 +37,7 @@ fabricApi {
 
 dependencies {
     // To change the versions see the gradle.properties file
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    minecraft "com.mojang:minecraft:${project.max_minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
@@ -49,15 +49,15 @@ dependencies {
 
 processResources {
     inputs.property "version", project.version
-    inputs.property "base_minecraft_version", project.base_minecraft_version
-    inputs.property "minecraft_version", project.minecraft_version
+    inputs.property "base_minecraft_version", project.min_minecraft_version
+    inputs.property "minecraft_version", project.max_minecraft_version
     inputs.property "loader_version", project.loader_version
     filteringCharset "UTF-8"
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version,
-                "minecraft_version": project.minecraft_version,
-                "base_minecraft_version": project.base_minecraft_version,
+                max_minecraft_version: project.max_minecraft_version,
+                min_minecraft_version: project.min_minecraft_version,
                 "loader_version": project.loader_version
     }
 }
