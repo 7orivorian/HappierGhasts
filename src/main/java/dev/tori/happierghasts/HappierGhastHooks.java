@@ -17,7 +17,6 @@ import java.util.function.Supplier;
 
 import static dev.tori.happierghasts.HappierGhasts.CONFIG;
 import static dev.tori.happierghasts.HappierGhasts.PROPELLER_SLOT;
-import static net.minecraft.entity.passive.HappyGhastEntity.FOOD_PREDICATE;
 
 /**
  * @author <a href="https://github.com/7orivorian">7orivorian</a>
@@ -33,7 +32,7 @@ public final class HappierGhastHooks {
         goalSelector.add(1, new HappyGhastTemptGoal(
                 ghast,
                 CONFIG.temptation.speed(),
-                stack -> !ghast.isWearingBodyArmor() && !ghast.isBaby() ? stack.isIn(ItemTags.HAPPY_GHAST_TEMPT_ITEMS) : FOOD_PREDICATE.test(stack),
+                stack -> !ghast.isWearingBodyArmor() && !ghast.isBaby() ? stack.isIn(ItemTags.HAPPY_GHAST_TEMPT_ITEMS) : ghast.isBreedingItem(stack),
                 false,
                 CONFIG.temptation.range()
         ));
