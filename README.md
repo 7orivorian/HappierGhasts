@@ -39,17 +39,17 @@ Happier Ghasts is a minecraft mod that provides QoL changes to Happy Ghasts, gre
 
 ## FAQ
 
-**Q:** Can I remove a propeller?<br>
+**Q:** Can I remove a propeller? <br>
 **A:** Yes! Propellers are removed the same way as harnesses—with shears.
 
-**Q:** Where do I install this mod?<br>
+**Q:** Where do I install this mod? <br>
 **A:** HappierGhasts must be installed on both the **client** and the **server**
 to function properly.
 
-**Q:** How do I configure this mod?<br>
+**Q:** How do I configure this mod? <br>
 **A:** For singleplayer I recommend [ModMenu](https://modrinth.com/mod/modmenu),
 server admins can edit the config directly in `/config/happier-ghasts.json5`.
 
-**Q:** May I use this mod in my modpack?<br>
+**Q:** May I use this mod in my modpack? <br>
 **A:** Absolutely! You may freely use an unmodified version of this mod in any
 modpacks/videos/etc without contacting me for approval.
