@@ -4,14 +4,14 @@ import dev.tori.happierghasts.goals.HappyGhastRoamAroundPlayerGoal;
 import dev.tori.happierghasts.goals.HappyGhastSwimGoal;
 import dev.tori.happierghasts.goals.HappyGhastTemptGoal;
 import dev.tori.happierghasts.item.ModItems;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ai.goal.GoalSelector;
-import net.minecraft.entity.mob.GhastEntity;
-import net.minecraft.entity.passive.HappyGhastEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.goal.GoalSelector;
+import net.minecraft.world.entity.animal.happyghast.HappyGhast;
+import net.minecraft.world.entity.monster.Ghast;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.function.Supplier;
 
@@ -28,51 +28,41 @@ public final class HappierGhastHooks {
         throw new UnsupportedOperationException("HappierGhastHooks is a utility class and cannot be instantiated");
     }
 
-    public static void initGoals(HappyGhastEntity ghast, GoalSelector goalSelector, Supplier<Entity> lastPassenger) {
-        goalSelector.add(1, new HappyGhastTemptGoal(
+    public static void initGoals(HappyGhast ghast, GoalSelector goalSelector, Supplier<Entity> lastPassenger) {
+        goalSelector.addGoal(1, new HappyGhastTemptGoal.ForNonPathfinders(
                 ghast,
-                CONFIG.temptation.speed(),
-                stack -> !ghast.isWearingBodyArmor() && !ghast.isBaby() ? stack.isIn(ItemTags.HAPPY_GHAST_TEMPT_ITEMS) : ghast.isBreedingItem(stack),
+                1.0,
+                stack -> !ghast.isBaby() ? stack.is(ItemTags.HAPPY_GHAST_TEMPT_ITEMS) : stack.is(ItemTags.HAPPY_GHAST_FOOD),
                 false,
-                CONFIG.temptation.range()
+                7.0
         ));
-        goalSelector.add(2, new HappyGhastSwimGoal(ghast));
-        if (CONFIG.roaming.enabled()) {
-            goalSelector.add(3, new HappyGhastRoamAroundPlayerGoal(
-                    ghast,
-                    lastPassenger,
-                    CONFIG.roaming.minDistance(),
-                    CONFIG.roaming.maxDistance(),
-                    CONFIG.roaming.blockCheckDistance(),
-                    CONFIG.roaming.minSpeed(),
-                    CONFIG.roaming.maxSpeed()
-            ));
-        }
-        goalSelector.add(5, new GhastEntity.FlyRandomlyGoal(ghast, 16));
+        goalSelector.addGoal(2, new HappyGhastSwimGoal(ghast));
+        goalSelector.addGoal(3, new HappyGhastRoamAroundPlayerGoal(ghast, lastPassenger));
+        goalSelector.addGoal(5, new Ghast.RandomFloatAroundGoal(ghast, 16));
     }
 
-    public static Vec3d scaleMovement(HappyGhastEntity ghast, PlayerEntity controllingPlayer, Vec3d movementInput) {
+    public static Vec3 scaleMovement(HappyGhast ghast, Player controllingPlayer, Vec3 movementInput) {
         double multiplier = 1.0;
 
-        ItemStack propellerStack = ghast.getEquippedStack(PROPELLER_SLOT);
+        ItemStack propellerStack = ghast.getItemBySlot(PROPELLER_SLOT);
         if (!propellerStack.isEmpty()) {
-            if (propellerStack.isOf(ModItems.COPPER_PROPELLER)) {
+            if (propellerStack.is(ModItems.COPPER_PROPELLER)) {
                 multiplier *= CONFIG.propellers.copperSpeedMultiplier();
-            } else if (propellerStack.isOf(ModItems.IRON_PROPELLER)) {
+            } else if (propellerStack.is(ModItems.IRON_PROPELLER)) {
                 multiplier *= CONFIG.propellers.ironSpeedMultiplier();
-            } else if (propellerStack.isOf(ModItems.DIAMOND_PROPELLER)) {
+            } else if (propellerStack.is(ModItems.DIAMOND_PROPELLER)) {
                 multiplier *= CONFIG.propellers.diamondSpeedMultiplier();
-            } else if (propellerStack.isOf(ModItems.NETHERITE_PROPELLER)) {
+            } else if (propellerStack.is(ModItems.NETHERITE_PROPELLER)) {
                 multiplier *= CONFIG.propellers.netheriteSpeedMultiplier();
             }
         }
-        if (isAtCruisingHeight(controllingPlayer.getEntityPos())) {
+        if (isAtCruisingHeight(controllingPlayer.position())) {
             multiplier *= CONFIG.cruising.speedMultiplier();
         }
-        return movementInput.multiply(multiplier);
+        return movementInput.scale(multiplier);
     }
 
-    public static boolean isAtCruisingHeight(Vec3d pos) {
-        return pos.getY() > CONFIG.cruising.activationHeight();
+    public static boolean isAtCruisingHeight(Vec3 pos) {
+        return pos.y() > CONFIG.cruising.activationHeight();
     }
 }

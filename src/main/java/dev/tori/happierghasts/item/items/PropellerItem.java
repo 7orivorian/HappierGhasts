@@ -1,6 +1,6 @@
 package dev.tori.happierghasts.item.items;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 /**
  * @author <a href="https://github.com/7orivorian">7orivorian</a>
@@ -8,7 +8,7 @@ import net.minecraft.item.Item;
  */
 public class PropellerItem extends Item {
 
-    public PropellerItem(Settings settings) {
+    public PropellerItem(Properties settings) {
         super(settings);
     }
 }

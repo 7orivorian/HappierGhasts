@@ -14,52 +14,24 @@
   "text.config.happier-ghasts.category.roaming.tooltip": "Happy Ghasts will roam around the last player to dismount them, keeping within summoning distance.",
   "text.config.happier-ghasts.option.roaming.enabled": "Enable Dynamic Roaming",
   "text.config.happier-ghasts.option.roaming.minDistance": "Minimum Roaming Distance",
-  "text.config.happier-ghasts.option.roaming.minDistance.tooltip": [
-    "A Happy Ghast roaming around a player will stay at least this distance away from the player.\n\n",
-    {
-      "text": "Low values may cause Happy Ghasts to obstruct players.",
-      "color": "#AAAAAA"
-    }
-  ],
+  "text.config.happier-ghasts.option.roaming.minDistance.tooltip": "A Happy Ghast roaming around a player will keep a minimum of this this distance from that player.\n\n§eLow values may cause Happy Ghasts to obstruct players.",
   "text.config.happier-ghasts.option.roaming.maxDistance": "Maximum Roaming Distance",
-  "text.config.happier-ghasts.option.roaming.maxDistance.tooltip": "A Happy Ghast roaming around a player will attempt to stay within this distance of the player.",
+  "text.config.happier-ghasts.option.roaming.maxDistance.tooltip": "A Happy Ghast roaming around a player will not stray farther than this distance from that player.",
   "text.config.happier-ghasts.option.roaming.minSpeed": "Minimum Speed",
   "text.config.happier-ghasts.option.roaming.minSpeed.tooltip": "Minimum Happy Ghast speed while roaming around a player.",
   "text.config.happier-ghasts.option.roaming.maxSpeed": "Maximum Speed",
-  "text.config.happier-ghasts.option.roaming.maxSpeed.tooltip": [
-    "Maximum Happy Ghast speed while roaming around a player.\n\n",
-    {
-      "text": "Low values may lead to Happy Ghasts having trouble keeping up with their targeted player.",
-      "color": "#AAAAAA"
-    }
-  ],
+  "text.config.happier-ghasts.option.roaming.maxSpeed.tooltip": "Maximum Happy Ghast speed while roaming around a player.\n\n§eLow values may lead to Happy Ghasts having trouble keeping up with their targeted player.",
   "text.config.happier-ghasts.option.roaming.blockCheckDistance": "Max Distance from Solid Blocks",
-  "text.config.happier-ghasts.option.roaming.blockCheckDistance.tooltip": [
-    "A Happy Ghast roaming around a player will stay within this distance of the nearest solid block.\n\n",
-    {
-      "text": "Set to 0 to disable.",
-      "color": "#AAAAAA"
-    }
-  ],
+  "text.config.happier-ghasts.option.roaming.blockCheckDistance.tooltip": "A Happy Ghast roaming around a player will stay within this distance of the nearest solid block.\n\n§7Set to 0 to disable.\n§7Set to 16 for Vanilla behaviour.",
   "text.config.happier-ghasts.category.temptation": "Temptation",
   "text.config.happier-ghasts.option.temptation.range": "Range",
-  "text.config.happier-ghasts.option.temptation.range.tooltip": [
-    "How far away Happy Ghasts can by tempted from.\n\n",
-    {
-      "text": "It's recommended to set this equal to or higher than your Maximum Roaming Distance.",
-      "color": "#AAAAAA"
-    }
-  ],
+  "text.config.happier-ghasts.option.temptation.range.tooltip": "How far away Happy Ghasts can by tempted from.\n\n§7It's recommended to set this equal to or higher than your Maximum Roaming Distance.\n§7Set to 16 for Vanilla behaviour.",
+  "text.config.happier-ghasts.option.temptation.stopDistance": "Stop Distance",
+  "text.config.happier-ghasts.option.temptation.stopDistance.tooltip": "How close Happy Ghasts will get while being tempted.\n\n§7Set to 7 for Vanilla behaviour.",
   "text.config.happier-ghasts.option.temptation.speed": "Summon Speed",
   "text.config.happier-ghasts.option.temptation.speed.tooltip": "How fast Happy Ghasts will move towards a temptation target.",
   "text.config.happier-ghasts.option.temptation.cooldownTicks": "Cooldown Ticks",
-  "text.config.happier-ghasts.option.temptation.cooldownTicks.tooltip": [
-    "How many ticks for Happy Ghasts to wait after losing a temptation target before they can be tempted again.\n\n",
-    {
-      "text": "High values may lead to a generally unresponsive feel that can be annoying.",
-      "color": "#AAAAAA"
-    }
-  ],
+  "text.config.happier-ghasts.option.temptation.cooldownTicks.tooltip": "How many ticks for Happy Ghasts to wait after losing a temptation target before they can be tempted again. Due to Mojang code jank, the actual tick delay is equal to this value divided by 2.\n\n§7High values may lead to a generally unresponsive feel that can be annoying.",
   "itemGroup.happierghasts.happier_ghasts": "Happier Ghasts",
   "item.happierghasts.copper_propeller": "Copper Propeller",
   "item.happierghasts.iron_propeller": "Iron Propeller",

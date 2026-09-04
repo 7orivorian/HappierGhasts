@@ -1,23 +1,23 @@
 package dev.tori.happierghasts.goals;
 
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.passive.HappyGhastEntity;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.animal.happyghast.HappyGhast;
 
 /**
  * @author <a href="https://github.com/7orivorian">7orivorian</a>
  * @since 1.0.0
  */
-public class HappyGhastSwimGoal extends SwimGoal {
+public class HappyGhastSwimGoal extends FloatGoal {
 
-    private final HappyGhastEntity entity;
+    private final HappyGhast entity;
 
-    public HappyGhastSwimGoal(HappyGhastEntity entity) {
+    public HappyGhastSwimGoal(HappyGhast entity) {
         super(entity);
         this.entity = entity;
     }
 
     @Override
-    public boolean canStart() {
-        return !entity.isStill() && super.canStart();
+    public boolean canUse() {
+        return !entity.isOnStillTimeout() && super.canUse();
     }
 }

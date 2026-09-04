@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 import dev.tori.happierghasts.config.HappierGhastsConfig;
 import dev.tori.happierghasts.item.ModItems;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot;
 import org.slf4j.Logger;
 
 /**

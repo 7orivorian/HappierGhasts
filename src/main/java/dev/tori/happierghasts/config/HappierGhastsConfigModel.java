@@ -49,10 +49,10 @@ public class HappierGhastsConfigModel {
         @RangeConstraint(min = 0, max = 128)
         public int minDistance = 8;
         @RangeConstraint(min = 0, max = 128)
-        public int maxDistance = 16;
-        @RangeConstraint(min = 0.1, max = 10.0)
+        public int maxDistance = 32;
+        @RangeConstraint(min = 0.1, max = 100.0)
         public double minSpeed = 1.0;
-        @RangeConstraint(min = 0.1, max = 10.0)
+        @RangeConstraint(min = 0.1, max = 100.0)
         public double maxSpeed = 10;
         @RangeConstraint(min = 0, max = 64)
         public int blockCheckDistance = 0;
@@ -64,11 +64,13 @@ public class HappierGhastsConfigModel {
 
     public static class Temptation {
 
-        @RangeConstraint(min = 0, max = 10)
-        public int range = 5;
+        @RangeConstraint(min = 0, max = 128)
+        public int range = 32;
+        @RangeConstraint(min = 0, max = 12)
+        public int stopDistance = 5;
         @RangeConstraint(min = 0.1, max = 5.0)
         public double speed = 1.1;
         @RangeConstraint(min = 0, max = 200)
-        public int cooldownTicks = 100;
+        public int cooldownTicks = 40;
     }
 }

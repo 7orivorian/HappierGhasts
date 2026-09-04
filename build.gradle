@@ -5,13 +5,23 @@ plugins {
 
 group = project.maven_group
 
-int min_mc_ver_minor = Integer.parseInt(project.min_minecraft_version.split("\\.")[1])
-int max_mc_ver_minor = Integer.parseInt(project.max_minecraft_version.split("\\.")[1])
+def minVersionSplit = project.min_minecraft_version.split("\\.")
+def maxVersionSplit = project.max_minecraft_version.split("\\.")
 
-int min_mc_ver_patch = Integer.parseInt(project.min_minecraft_version.split("\\.")[2])
-int max_mc_ver_patch = Integer.parseInt(project.max_minecraft_version.split("\\.")[2])
+boolean hyphenate = false
+if (minVersionSplit.length >= 2 && maxVersionSplit.length >= 2) {
+    int min_mc_ver_minor = Integer.parseInt(minVersionSplit[1])
+    int max_mc_ver_minor = Integer.parseInt(maxVersionSplit[1])
+    hyphenate = max_mc_ver_minor > min_mc_ver_minor
+}
 
-version = (max_mc_ver_minor > min_mc_ver_minor) || (max_mc_ver_patch > min_mc_ver_patch) ?
+if (minVersionSplit.length >= 3 && maxVersionSplit.length >= 3) {
+    int min_mc_ver_patch = Integer.parseInt(minVersionSplit[2])
+    int max_mc_ver_patch = Integer.parseInt(maxVersionSplit[2])
+    hyphenate |= max_mc_ver_patch > min_mc_ver_patch
+}
+
+version = hyphenate ?
         "${project.mod_version}-[${project.min_minecraft_version}-${project.max_minecraft_version}]" :
         "${project.mod_version}-[${project.max_minecraft_version}]"
 
@@ -26,6 +36,7 @@ repositories {
     maven {
         url 'https://jitpack.io'
     }
+    mavenLocal()
 }
 
 loom {
@@ -41,7 +52,7 @@ fabricApi {
 dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.max_minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
@@ -51,19 +62,29 @@ dependencies {
 }
 
 processResources {
-    inputs.property "version", project.version
-    inputs.property "base_minecraft_version", project.min_minecraft_version
-    inputs.property "minecraft_version", project.max_minecraft_version
-    inputs.property "loader_version", project.loader_version
-    inputs.property "owo_version", project.owo_version
+    def version = project.version
+    inputs.property "version", version
+
+    def minVersion = project.min_minecraft_version
+    inputs.property "base_minecraft_version", minVersion
+
+    def maxVersion = project.max_minecraft_version
+    inputs.property "minecraft_version", maxVersion
+
+    def loaderVersion = project.loader_version
+    inputs.property "loader_version", loaderVersion
+
+    def owoVersion = project.owo_version
+    inputs.property "owo_version", owoVersion
+
     filteringCharset "UTF-8"
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version,
-                max_minecraft_version: project.max_minecraft_version,
-                min_minecraft_version: project.min_minecraft_version,
-                "loader_version": project.loader_version,
-                "owo_version": project.owo_version
+        expand "version": version,
+                "max_minecraft_version": maxVersion,
+                "min_minecraft_version": minVersion,
+                "loader_version": loaderVersion,
+                "owo_version": owoVersion
     }
 }
 
@@ -82,10 +103,11 @@ java {
 }
 
 jar {
-    inputs.property "archivesName", project.base.archivesName
+    def projectName = project.name
+    inputs.property "projectName", projectName
 
     from("LICENSE") {
-        rename { "${it}_${inputs.properties.archivesName}" }
+        rename { "${it}_${projectName}" }
     }
 }
 
