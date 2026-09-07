@@ -71,6 +71,9 @@ processResources {
     def loaderVersion = project.loader_version
     inputs.property "loader_version", loaderVersion
 
+    def fabricApiVersion = project.fabric_api_version
+    inputs.property "fabric_api_version", fabricApiVersion
+
     def owoVersion = project.owo_version
     inputs.property "owo_version", owoVersion
 
@@ -81,6 +84,7 @@ processResources {
                 "max_minecraft_version": maxVersion,
                 "min_minecraft_version": minVersion,
                 "loader_version": loaderVersion,
+                "fabric_api_version": fabricApiVersion,
                 "owo_version": owoVersion
     }
 }
