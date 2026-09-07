@@ -50,10 +50,10 @@ public class ModItems {
 
         OwoItemGroup.builder(
                 Identifier.fromNamespaceAndPath(HappierGhasts.MOD_ID, "happier_ghasts"),
-                () -> Icon.of(Items.PURPLE_HARNESS)
+                () -> Icon.of(Items.HARNESS.purple())
         ).initializer(group -> {
             ItemGroupTab.ContentSupplier supplier = (context, entries) -> entries.acceptAll(PROPELLERS.stream().map(Item::getDefaultInstance).collect(Collectors.toList()));
-            group.addCustomTab(Icon.of(Items.PURPLE_HARNESS), "happierghasts", supplier, ItemGroupTab.DEFAULT_TEXTURE, true);
+            group.addCustomTab(Icon.of(Items.HARNESS.purple()), "happierghasts", supplier, ItemGroupTab.DEFAULT_TEXTURE, true);
         }).build().initialize();
     }
 

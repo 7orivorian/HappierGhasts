@@ -122,7 +122,7 @@ public class HappyGhastRoamAroundPlayerGoal extends Goal {
         double distFromPlayer = ghast.distanceToSqr(player);
         boolean isWithinRoamingRange = distFromPlayer < maxRoamingDistance * maxRoamingDistance;
 
-        Vec3 wantedPos = roamingTarget.getCenter();
+        Vec3 wantedPos = Vec3.atCenterOf(roamingTarget);
         double speedModifier = isWithinRoamingRange ? CONFIG.roaming.minSpeed() : CONFIG.roaming.maxSpeed();
 
         ghast.getMoveControl().setWantedPosition(wantedPos.x(), wantedPos.y(), wantedPos.z(), speedModifier);
