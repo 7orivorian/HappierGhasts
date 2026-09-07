@@ -31,10 +31,10 @@ base {
 
 repositories {
     maven {
-        url 'https://maven.wispforest.io'
+        url = 'https://maven.wispforest.io'
     }
     maven {
-        url 'https://jitpack.io'
+        url = 'https://jitpack.io'
     }
     mavenLocal()
 }
@@ -51,11 +51,9 @@ fabricApi {
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.max_minecraft_version}"
-
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-
     annotationProcessor implementation("io.wispforest:owo-lib:${project.owo_version}")
     include "io.wispforest:owo-sentinel:${project.owo_version}"
 }
@@ -76,7 +74,7 @@ processResources {
     def owoVersion = project.owo_version
     inputs.property "owo_version", owoVersion
 
-    filteringCharset "UTF-8"
+    filteringCharset = "UTF-8"
 
     filesMatching("fabric.mod.json") {
         expand "version": version,
