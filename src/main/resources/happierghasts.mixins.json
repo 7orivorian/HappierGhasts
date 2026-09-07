@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "MixinHappyGhastEntity",
+    "accessor.ItemsAccessor",
     "accessor.TemptGoalAccessor"
   ],
   "injectors": {

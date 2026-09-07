@@ -3,12 +3,10 @@ package dev.tori.happierghasts.item;
 import dev.tori.happierghasts.HappierGhasts;
 import dev.tori.happierghasts.item.equipment.ModEquipmentAssetKeys;
 import dev.tori.happierghasts.item.items.PropellerItem;
+import dev.tori.happierghasts.mixin.accessor.ItemsAccessor;
 import io.wispforest.owo.itemgroup.Icon;
 import io.wispforest.owo.itemgroup.OwoItemGroup;
 import io.wispforest.owo.itemgroup.gui.ItemGroupTab;
-import java.util.ArrayList;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -22,6 +20,10 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.equipment.Equippable;
+
+import java.util.ArrayList;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static dev.tori.happierghasts.HappierGhasts.LOGGER;
 import static dev.tori.happierghasts.HappierGhasts.MOD_ID;
@@ -72,7 +74,7 @@ public class ModItems {
     }
 
     private static Item register(String id, Function<Item.Properties, Item> factory, Item.Properties settings) {
-        return Items.registerItem(keyOf(id), factory, settings);
+        return ItemsAccessor.callRegisterItem(keyOf(id), factory, settings);
     }
 
     private static ResourceKey<Item> keyOf(String id) {
